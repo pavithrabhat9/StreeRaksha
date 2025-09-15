@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">StreeRaksha</string>
+    <string name="call">Call</string>
+    
+    <!-- Explore Lifesave Activity -->
+    <string name="explore_lifesave">Explore Lifesave</string>
+    <string name="back">Back</string>
+    
+    <!-- Card Titles -->
+    <string name="police_station">Police Station</string>
+    <string name="hospital">Hospital</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="emergency_shelter">Emergency Shelter</string>
+    <string name="emergency_sos">Emergency SOS</string>
+    <string name="additional_tools">Additional Tools</string>
+    <string name="camera_detector">Camera Detector</string>
+    <string name="emergency_helpline">Emergency Helpline</string>
+    <string name="siren">Siren</string>
+    <string name="contacts">Contacts</string>
+    <string name="fire_station">Fire Station</string>
+    <string name="womens_helpline">Women\'s Helpline</string>
+    
+    <!-- Card Subtitles -->
+    <string name="find_nearest_police_station">Find nearest police station</string>
+    <string name="find_nearest_hospital">Locate nearby hospitals</string>
+    <string name="find_nearest_pharmacy">Find 24/7 pharmacies</string>
+    <string name="find_nearest_emergency_shelter">Find safe emergency shelters</string>
+    <string name="sos_description">Tap here in case of immediate danger - sends instant alerts to your emergency contacts.</string>
+    <string name="add_emergency_contacts">Add emergency contacts</string>
+    <string name="sensor_detection">Sensor Detection</string>
+    <string name="manual_detection">Manual Detection</string>
+    <string name="stop_siren">Stop Siren</string>
+    
+    <!-- Error Messages -->
+    <string name="no_emergency_contacts">No emergency contacts added yet!</string>
+    <string name="sms_permission_required">SMS permission required</string>
+    <string name="required_permissions_not_granted">Required permissions not granted</string>
+    <string name="contact_already_added">Contact already added</string>
+    <string name="contact_removed">Contact removed</string>
+    <string name="failed_to_send_sos">Failed to send SOS messages</string>
+    <string name="call_permission_required">Call permission is required to make emergency calls</string>
+    <string name="could_not_make_call">Could not make the call: %1$s</string>
+    
+    <!-- Success Messages -->
+    <string name="sos_sent_to_contacts">SOS sent to %1$d contact(s)</string>
+    <string name="siren_started">Siren started</string>
+    <string name="siren_stopped">Siren stopped</string>
+    <string name="sensor_detection_started">Sensor detection started</string>
+    <string name="manual_detection_started">Manual detection guide opened</string>
+    <string name="infrared_detection_started">Infrared camera scan started</string>
+    <string name="camera_permission_required">Camera permission is required for infrared detection</string>
+    <string name="hidden_camera_detected">Potential hidden camera detected!</string>
+    <string name="no_cameras_found">No hidden cameras found in the scan area</string>
+    <string name="scanning_in_progress">Scanning for hidden cameras...</string>
+    
+    <!-- SOS Messages -->
+    <string name="sos_message_with_location">SOS! I\'m in danger. My location: https://maps.google.com/?q=%1$f,%2$f</string>
+    <string name="sos_message_no_location">SOS! I\'m in danger.</string>
+    
+    <!-- Permission Messages -->
+    <string name="location_permission_required">Location permission is required to find nearby places.</string>
+    <string name="permission_granted">Permission granted. Please tap the option again.</string>
+    <string name="google_maps_not_found">Google Maps not found. Opening in browser.</string>
+    
+    <!-- Detailed Permission Messages -->
+    <string name="permission_required_title">Permissions Required</string>
+    <string name="permission_denied_title">Permissions Denied</string>
+    <string name="permission_settings_title">Open Settings</string>
+    <string name="permission_explanation">This app needs the following permissions to provide emergency features:\n\n%1$s\n\nThese permissions are essential for the app to function properly and keep you safe.</string>
+    <string name="permission_still_required">The following permissions are still required:\n\n%1$s\n\nWithout these permissions, some features may not work correctly.</string>
+    <string name="permission_permanently_denied">Some permissions have been permanently denied:\n\n%1$s\n\nTo enable these permissions, please go to Settings and manually grant them.</string>
+    <string name="permission_feature_blocked">%1$s requires the following permissions:\n\n%2$s\n\nWould you like to enable these permissions?</string>
+    
+    <!-- Permission Action Buttons -->
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="not_now">Not Now</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Permission Names for Display -->
+    <string name="permission_contacts">Contacts - To access emergency contacts</string>
+    <string name="permission_sms">SMS - To send emergency messages</string>
+    <string name="permission_location">Location - To share your location in emergencies</string>
+    <string name="permission_phone">Phone - To make emergency calls</string>
+    <string name="permission_camera">Camera - For safety detection features</string>
+    <string name="permission_vibrate">Vibration - For emergency alerts</string>
+
+    <!-- Dialog Messages -->
+    <string name="delete_contact">Delete Contact</string>
+    <string name="delete_contact_confirmation">Are you sure you want to delete %1$s?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="error">Error: %1$s</string>
+    
+    <!-- Nearby Search -->
+    <string name="nearby_police_station">nearby police station</string>
+    <string name="nearby_hospital">nearby hospital</string>
+    <string name="nearby_fire_station">nearby fire station</string>
+    <string name="nearby_womens_helpline">nearby women\'s helpline</string>
+    
+    <!-- Content Descriptions for Accessibility -->
+    <string name="emergency_sos_icon">Emergency SOS</string>
+    <string name="camera_detector_icon">Hidden Camera Detector</string>
+    <string name="siren_icon">Emergency Siren</string>
+    <string name="contacts_icon">Emergency Contacts</string>
+    <string name="police_icon">Police Station</string>
+    <string name="hospital_icon">Hospital</string>
+    <string name="fire_station_icon">Fire Station</string>
+    <string name="womens_helpline_icon">Women\'s Helpline</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#FFCDD2"> <!-- Ripple color (light red) -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFCDD2"/> <!-- Ripple mask -->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#D32F2F"/> <!-- Actual button background -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</ripple>
