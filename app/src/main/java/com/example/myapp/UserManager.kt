@@ -69,9 +69,35 @@ class UserManager(context: Context) {
         return password.length >= 6
     }
     
+    /**
+     * Session management: persist and query logged-in user
+     */
+    fun setLoggedIn(email: String) {
+        sharedPreferences.edit().apply {
+            putString(KEY_LOGGED_IN_EMAIL, email)
+            apply()
+        }
+    }
+
+    fun isLoggedIn(): Boolean {
+        return sharedPreferences.contains(KEY_LOGGED_IN_EMAIL)
+    }
+
+    fun getLoggedInEmail(): String? {
+        return sharedPreferences.getString(KEY_LOGGED_IN_EMAIL, null)
+    }
+
+    fun logout() {
+        sharedPreferences.edit().apply {
+            remove(KEY_LOGGED_IN_EMAIL)
+            apply()
+        }
+    }
+    
     companion object {
         private const val PREF_NAME = "user_credentials"
         private const val KEY_USER_PREFIX = "user_"
+        private const val KEY_LOGGED_IN_EMAIL = "logged_in_email"
         
         @Volatile
         private var instance: UserManager? = null

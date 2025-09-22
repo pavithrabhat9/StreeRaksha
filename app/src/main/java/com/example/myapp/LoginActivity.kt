@@ -16,6 +16,14 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // If already logged in, skip login screen
+        val userManager = UserManager.getInstance(this)
+        if (userManager.isLoggedIn()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         setupUI()
         setupListeners()
     }
@@ -101,6 +109,8 @@ class LoginActivity : AppCompatActivity() {
         // Simulating network delay
         binding.btnLogin.postDelayed({
             if (isAuthenticated) {
+                // Persist session
+                userManager.setLoggedIn(email)
                 // Navigate to MainActivity after successful login
                 Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
