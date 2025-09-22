@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.myapp.databinding.ActivityRegistrationBinding
+ 
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -22,6 +23,12 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
+        binding.etName.addTextChangedListener {
+            binding.tilName.error = null
+        }
+        binding.etPhone.addTextChangedListener {
+            binding.tilPhone.error = null
+        }
         binding.etEmail.addTextChangedListener { 
             binding.tilEmail.error = null
         }
@@ -32,6 +39,9 @@ class RegistrationActivity : AppCompatActivity() {
 
         binding.etConfirmPassword.addTextChangedListener {
             binding.tilConfirmPassword.error = null
+        }
+        binding.cbTerms.setOnCheckedChangeListener { _, _ ->
+            // no-op; validated on submit
         }
     }
 
@@ -50,6 +60,23 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun validateInputs(): Boolean {
         var isValid = true
+
+        // Validate name
+        val name = binding.etName.text.toString().trim()
+        if (name.isEmpty()) {
+            binding.tilName.error = getString(R.string.name_required)
+            isValid = false
+        }
+
+        // Validate phone (basic 10-15 digits, optional +)
+        val phone = binding.etPhone.text.toString().trim()
+        if (phone.isEmpty()) {
+            binding.tilPhone.error = getString(R.string.phone_required)
+            isValid = false
+        } else if (!phone.matches(Regex("^\\+?[0-9]{10,15}$"))) {
+            binding.tilPhone.error = getString(R.string.invalid_phone)
+            isValid = false
+        }
 
         // Validate email
         val email = binding.etEmail.text.toString()
@@ -75,6 +102,12 @@ class RegistrationActivity : AppCompatActivity() {
         val confirmPassword = binding.etConfirmPassword.text.toString()
         if (confirmPassword != password) {
             binding.tilConfirmPassword.error = getString(R.string.passwords_dont_match)
+            isValid = false
+        }
+
+        // Validate terms acceptance
+        if (!binding.cbTerms.isChecked) {
+            Toast.makeText(this, getString(R.string.please_accept_terms), Toast.LENGTH_SHORT).show()
             isValid = false
         }
 
@@ -143,9 +176,9 @@ class RegistrationActivity : AppCompatActivity() {
             if (registrationSuccessful) {
                 Toast.makeText(this, getString(R.string.registration_successful), Toast.LENGTH_SHORT).show()
                 
-                // Navigate to MainActivity after successful registration
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                // Persist session and navigate to MainActivity after successful registration
+                userManager.setLoggedIn(email)
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
                 // This should rarely happen as we already checked if user exists
