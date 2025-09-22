@@ -31,15 +31,24 @@
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting">
+            android:theme="@style/Theme.MyApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.App.Starting" />
+            
+        <activity
+            android:name=".RegistrationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
         <activity android:name=".SosActivity" />
         <activity android:name=".EmergencyHelplineActivity" />
         <activity android:name=".SirenActivity"
@@ -49,6 +58,9 @@
             android:exported="false"
             android:theme="@style/Theme.MyApp" />
         <activity android:name=".CameraDetectorActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
+        <activity android:name=".EditProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.MyApp" />
     </application>

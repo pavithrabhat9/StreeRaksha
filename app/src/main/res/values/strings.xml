@@ -107,4 +107,27 @@
     <string name="hospital_icon">Hospital</string>
     <string name="fire_station_icon">Fire Station</string>
     <string name="womens_helpline_icon">Women\'s Helpline</string>
+    <string name="password_length">Password must be at least 6 characters</string>
+    <string name="create_account">Create Account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="registering">Registering...</string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="passwords_dont_match">Passwords don\'t match</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="email_required">Email is required</string>
+    <string name="invalid_email">Please enter a valid email address</string>
+    <string name="password_required">Password is required</string>
+    <string name="confirm_password_required">Please confirm your password</string>
+    <string name="user_not_registered">User not registered. Please sign up first</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="login_successful">Login successful</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="email_already_registered">Email already registered</string>
+    <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Registration failed</string>
 </resources>

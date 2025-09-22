@@ -43,6 +43,8 @@ import com.example.myapp.presentation.contacts.ContactsViewModel
 import com.example.myapp.utils.PermissionManager
 import com.example.myapp.utils.FeaturePermissionHelper
 import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -435,6 +437,60 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // Set up Bottom Navigation to switch between Home content and fragments
+        val bottomNav = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        val homeScroll = findViewById<android.widget.ScrollView>(R.id.home_scroll)
+        val fragmentContainer = findViewById<FrameLayout>(R.id.fragment_container)
+
+        fun showHome() {
+            // Hide fragments and show home content
+            fragmentContainer.visibility = android.view.View.GONE
+            homeScroll.visibility = android.view.View.VISIBLE
+        }
+
+        fun showFragment(tag: String, creator: () -> Fragment) {
+            homeScroll.visibility = android.view.View.GONE
+            fragmentContainer.visibility = android.view.View.VISIBLE
+
+            val fm = supportFragmentManager
+            val transaction = fm.beginTransaction()
+
+            // Hide all existing fragments
+            fm.fragments.forEach { transaction.hide(it) }
+
+            // Show or add the requested fragment
+            val existing = fm.findFragmentByTag(tag)
+            if (existing != null) {
+                transaction.show(existing)
+            } else {
+                transaction.add(R.id.fragment_container, creator(), tag)
+            }
+            transaction.commit()
+        }
+
+        bottomNav.selectedItemId = R.id.nav_home
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    showHome()
+                    true
+                }
+                R.id.nav_tips -> {
+                    showFragment("tips") { TipsFragment() }
+                    true
+                }
+                R.id.nav_location -> {
+                    showFragment("location") { LocationFragment() }
+                    true
+                }
+                R.id.nav_profile -> {
+                    showFragment("profile") { ProfileFragment() }
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun checkFirstLaunchAndPermissions() {
@@ -689,7 +745,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun stopSiren() {
+    private fun stopSiren(silent: Boolean = false) {
         isSirenActive = false
         saveSirenState(false)
 
@@ -708,7 +764,9 @@ class MainActivity : AppCompatActivity() {
         // Update UI
         updateSirenCardUI()
 
-        Toast.makeText(this, "Siren stopped", Toast.LENGTH_SHORT).show()
+        if (!silent) {
+            Toast.makeText(this, "Siren stopped", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateSirenCardUI() {
@@ -828,8 +886,10 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         
-        // Clean up siren resources
-        stopSiren()
+        // Clean up siren resources silently (avoid showing toast during navigation)
+        if (isSirenActive) {
+            stopSiren(silent = true)
+        }
         
         // Clean up handlers
         sirenHandler.removeCallbacksAndMessages(null)
