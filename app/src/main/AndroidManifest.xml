@@ -63,6 +63,9 @@
         <activity android:name=".EditProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.MyApp" />
+        <activity android:name=".ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
     </application>
 
 </manifest>

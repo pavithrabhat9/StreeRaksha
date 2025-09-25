@@ -2,11 +2,13 @@ package com.example.myapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.myapp.databinding.ActivityLoginBinding
-import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -30,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupUI() {
         // Add text change listeners for real-time validation
-        binding.etEmail.addTextChangedListener { 
+        binding.etEmail.addTextChangedListener {
             binding.tilEmail.error = null
         }
         
@@ -52,8 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Forgot password click listener
         binding.tvForgotPassword.setOnClickListener {
-            // TODO: Implement forgot password functionality
-            Toast.makeText(this, "Forgot password clicked", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
         // Sign up click listener
@@ -69,20 +70,20 @@ class LoginActivity : AppCompatActivity() {
         // Validate email
         val email = binding.etEmail.text.toString()
         if (email.isEmpty()) {
-            binding.tilEmail.error = "Email is required"
+            binding.tilEmail.error = getString(R.string.email_required)
             isValid = false
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.tilEmail.error = "Invalid email format"
+            binding.tilEmail.error = getString(R.string.invalid_email)
             isValid = false
         }
 
         // Validate password
         val password = binding.etPassword.text.toString()
         if (password.isEmpty()) {
-            binding.tilPassword.error = "Password is required"
+            binding.tilPassword.error = getString(R.string.password_required)
             isValid = false
         } else if (password.length < 6) {
-            binding.tilPassword.error = "Password must be at least 6 characters"
+            binding.tilPassword.error = getString(R.string.password_too_short)
             isValid = false
         }
 
@@ -90,37 +91,51 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin(email: String, password: String) {
-        // Get UserManager instance
-        val userManager = UserManager.getInstance(this)
-        
-        // Check if user is registered
-        if (!userManager.isUserRegistered(email)) {
-            binding.tilEmail.error = getString(R.string.user_not_registered)
-            return
-        }
-        
         // Show loading state
+        binding.progressBar.visibility = View.VISIBLE
         binding.btnLogin.isEnabled = false
         binding.btnLogin.text = getString(R.string.logging_in)
 
-        // Authenticate user
-        val isAuthenticated = userManager.authenticateUser(email, password)
-        
-        // Simulating network delay
-        binding.btnLogin.postDelayed({
-            if (isAuthenticated) {
-                // Persist session
-                userManager.setLoggedIn(email)
-                // Navigate to MainActivity after successful login
-                Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            } else {
-                // Show error for incorrect password
+        // Authenticate with Firebase
+        Firebase.auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                binding.progressBar.visibility = View.GONE
                 binding.btnLogin.isEnabled = true
                 binding.btnLogin.text = getString(R.string.login)
-                binding.tilPassword.error = getString(R.string.incorrect_password)
+
+                if (task.isSuccessful) {
+                    // Sign in success
+                    val user = Firebase.auth.currentUser
+                    if (user != null) {
+                        // Update UserManager with the logged-in user
+                        val userManager = UserManager.getInstance(this)
+                        userManager.setLoggedIn(user.email ?: "")
+
+                        // Show success message
+                        Toast.makeText(
+                            this,
+                            getString(R.string.login_successful),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Navigate to MainActivity
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    val errorMessage =
+                        task.exception?.message ?: getString(R.string.authentication_failed)
+
+                    // Check if the error is due to wrong password
+                    if (errorMessage.contains("password is invalid", ignoreCase = true) ||
+                        errorMessage.contains("no user record", ignoreCase = true)
+                    ) {
+                        binding.tilPassword.error = getString(R.string.incorrect_password)
+                    } else {
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                    }
+                }
             }
-        }, 1000)
     }
 }

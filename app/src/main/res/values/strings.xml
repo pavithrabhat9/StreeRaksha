@@ -92,6 +92,29 @@
     <string name="no">No</string>
     <string name="error">Error: %1$s</string>
     
+    <!-- Authentication -->
+    <string name="logging_in">Logging in…</string>
+    <string name="login">Login</string>
+    <string name="login_successful">Login successful</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="invalid_credentials">Invalid email or password</string>
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="invalid_email">Please enter a valid email address</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="no_account">Don\'t have an account? </string>
+    <string name="sign_up">Sign Up</string>
+    <string name="reset_password_email_sent">Password reset email sent. Please check your inbox.</string>
+    <string name="reset_password_failed">Failed to send reset email. Please try again.</string>
+    <string name="email_not_registered">No account found with this email address</string>
+    <string name="password_reset_success">Password reset successful! You can now login with your new password.</string>
+    <string name="password_reset_link_sent">Password reset link has been sent to your email.</string>
+    <string name="password_reset_failed">Failed to reset password. Please try again.</string>
+    <string name="password_reset_invalid_code">Invalid or expired reset code.</string>
+    <string name="password_reset_network_error">Network error. Please check your connection and try again.</string>
+    <string name="password_reset_unknown_error">An unexpected error occurred. Please try again later.</string>
+    
     <!-- Nearby Search -->
     <string name="nearby_police_station">nearby police station</string>
     <string name="nearby_hospital">nearby hospital</string>
@@ -118,18 +141,14 @@
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="email_required">Email is required</string>
-    <string name="invalid_email">Please enter a valid email address</string>
-    <string name="password_required">Password is required</string>
     <string name="confirm_password_required">Please confirm your password</string>
     <string name="user_not_registered">User not registered. Please sign up first</string>
     <string name="incorrect_password">Incorrect password</string>
-    <string name="login_successful">Login successful</string>
-    <string name="logging_in">Logging in...</string>
+    
+    <!-- Login Screen -->
     <string name="email_already_registered">Email already registered</string>
-    <string name="registration_successful">Registration successful</string>
-    <string name="registration_failed">Registration failed</string>
+    <string name="registration_successful">Registration successful!</string>
+    <string name="registration_failed">Registration failed.</string>
 
     <!-- Registration (enhanced) -->
     <string name="full_name">Full Name</string>
