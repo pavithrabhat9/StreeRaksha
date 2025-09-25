@@ -171,6 +171,7 @@
     <string name="gender_required">Please select your gender</string>
     <string name="dob_required">Date of birth is required</string>
     <string name="please_accept_terms">Please accept the terms to continue</string>
+    <string name="logout">Logout</string>
 
     <!-- Dropdown options -->
     <string-array name="gender_options">

@@ -37,7 +37,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
 
         // Handle Back to Login button click
-        binding.btnBackToLogin.setOnClickListener {
+        binding.tvBackToLogin.setOnClickListener {
             finish()
         }
     }

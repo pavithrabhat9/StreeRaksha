@@ -85,8 +85,7 @@
                     android:hint="@string/full_name"
                     app:boxStrokeColor="@color/electric_blue"
                     app:hintTextColor="@color/electric_blue"
-                    app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/electric_blue">
+                    app:startIconDrawable="@drawable/ic_person">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etName"
@@ -105,8 +104,7 @@
                     android:hint="@string/phone"
                     app:boxStrokeColor="@color/electric_blue"
                     app:hintTextColor="@color/electric_blue"
-                    app:startIconDrawable="@drawable/ic_phone"
-                    app:startIconTint="@color/electric_blue">
+                    app:startIconDrawable="@drawable/ic_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPhone"
@@ -114,8 +112,6 @@
                         android:layout_height="wrap_content"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                
 
                 <!-- Email -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -126,7 +122,8 @@
                     android:layout_marginTop="16dp"
                     android:hint="@string/email"
                     app:boxStrokeColor="@color/electric_blue"
-                    app:hintTextColor="@color/electric_blue">
+                    app:hintTextColor="@color/electric_blue"
+                    app:startIconDrawable="@drawable/ic_email">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
@@ -146,7 +143,8 @@
                     android:hint="@string/password"
                     app:boxStrokeColor="@color/electric_blue"
                     app:hintTextColor="@color/electric_blue"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleDrawable="@drawable/design_password_eye">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
@@ -166,7 +164,8 @@
                     android:hint="@string/confirm_password"
                     app:boxStrokeColor="@color/electric_blue"
                     app:hintTextColor="@color/electric_blue"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleDrawable="@drawable/design_password_eye">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etConfirmPassword"
