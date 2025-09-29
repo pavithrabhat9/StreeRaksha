@@ -12,6 +12,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.text.TextWatcher
+import android.text.Editable
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -23,8 +25,81 @@ class RegistrationActivity : AppCompatActivity() {
 
         setupUI()
         setupListeners()
+        setupPasswordValidation()
     }
 
+    private fun setupPasswordValidation() {
+        binding.etPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    validatePassword(it.toString())
+                    checkPasswordsMatch()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.etConfirmPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                checkPasswordsMatch()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun validatePassword(password: String): Boolean {
+        val hasUppercase = password.any { it.isUpperCase() }
+        val hasLowercase = password.any { it.isLowerCase() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
+        val isLongEnough = password.length >= 6
+
+        var errorMessage: String? = null
+
+        if (!isLongEnough) {
+            errorMessage = "Password must be at least 6 characters long."
+        } else if (!hasUppercase) {
+            errorMessage = "Password must contain at least one uppercase letter."
+        } else if (!hasLowercase) {
+            errorMessage = "Password must contain at least one lowercase letter."
+        } else if (!hasDigit) {
+            errorMessage = "Password must contain at least one digit."
+        } else if (!hasSpecialChar) {
+            errorMessage = "Password must contain at least one special character."
+        }
+
+        binding.tilPassword.error = errorMessage
+        binding.tilPassword.isErrorEnabled = errorMessage != null
+
+        return errorMessage == null
+    }
+
+    private fun checkPasswordsMatch() {
+        val password = binding.etPassword.text.toString()
+        val confirmPassword = binding.etConfirmPassword.text.toString()
+
+        if (password != confirmPassword) {
+            binding.tilConfirmPassword.error = "Passwords do not match."
+            binding.tilConfirmPassword.isErrorEnabled = true
+        } else {
+            binding.tilConfirmPassword.error = null
+            binding.tilConfirmPassword.isErrorEnabled = false
+        }
+        updateRegisterButtonState()
+    }
+
+    private fun updateRegisterButtonState() {
+        val isPasswordValid = validatePassword(binding.etPassword.text.toString())
+        // The register button should be enabled if the main password field is valid.
+        // The 'passwords do not match' error will be displayed under the confirm password field.
+        binding.btnRegister.isEnabled = isPasswordValid
+    }
     private fun setupUI() {
         binding.etName.addTextChangedListener {
             binding.tilName.error = null
