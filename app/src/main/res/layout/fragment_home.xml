@@ -202,7 +202,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardCornerRadius="16dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="@color/safety_accent">
 
@@ -255,7 +255,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardCornerRadius="16dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="@color/emergency_accent">
 
@@ -319,7 +319,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardCornerRadius="16dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="@color/location_accent">
 
@@ -373,7 +373,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardCornerRadius="16dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="#EFE6FD">
 
