@@ -28,6 +28,7 @@
         app:itemRippleColor="@android:color/transparent"
         app:itemTextAppearanceActive="@style/TextAppearance.MyApp.BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/TextAppearance.MyApp.BottomNavigationView"
-        app:itemBackground="@drawable/nav_item_background" />
+        app:itemBackground="@drawable/nav_item_background"
+        app:itemActiveIndicatorStyle="@color/fui_transparent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

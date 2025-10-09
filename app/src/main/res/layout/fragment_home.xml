@@ -14,18 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/surface_primary"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingHorizontal="20dp"
         android:paddingTop="12dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/app_name"
+            android:text="Stree"
             android:textColor="@color/electric_blue"
             android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:fontFamily="@font/montserratmedium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Raksha"
+            android:textColor="@color/accent_purple"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserratmedium"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +67,7 @@
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/surface_secondary">
+                app:cardBackgroundColor="#EAE6FA">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,15 +99,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:text="Emergency SOS"
-                                android:textColor="@color/Onyx"
-                                android:textSize="24sp"
+                                android:textColor="@color/electric_blue"
+                                android:textSize="26sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Tap to send instant alerts"
-                                android:textColor="@color/text_secondary"
+                                android:textColor="@color/text_on_light_primary"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -108,16 +117,16 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_activate_emergency"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="ACTIVATE EMERGENCY"
                         android:textAllCaps="true"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/electric_blue"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:paddingVertical="12dp"
                         android:icon="@drawable/ic_alert"
-                        android:backgroundTint="@color/red_primary"
-                        app:cornerRadius="8dp"
+                        android:backgroundTint="@color/surface_primary"
+                        app:cornerRadius="15dp"
                         app:rippleColor="@color/red_ripple"
                         style="@style/Widget.MaterialComponents.Button" />
 
@@ -129,40 +138,40 @@
                         android:paddingTop="4dp">
 
                         <!-- Configured State -->
-                        <TextView
-                            android:id="@+id/tv_contacts_configured"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:text="✓ Emergency contacts configured"
-                            android:textColor="@color/text_success_high_contrast"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"
-                            android:clickable="false"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_contacts_configured"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:paddingHorizontal="12dp"-->
+<!--                            android:paddingVertical="8dp"-->
+<!--                            android:text="✓ Emergency contacts configured"-->
+<!--                            android:textColor="@color/text_success_high_contrast"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:visibility="gone"-->
+<!--                            android:clickable="false"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false" />-->
 
                         <!-- Not Configured State -->
-                        <TextView
-                            android:id="@+id/tv_contacts_not_configured"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:text="✗ Emergency contacts not configured"
-                            android:textColor="@color/emergency_red_dark"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:visibility="visible"
-                            android:clickable="false"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_contacts_not_configured"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:paddingHorizontal="12dp"-->
+<!--                            android:paddingVertical="8dp"-->
+<!--                            android:text="✗ Emergency contacts not configured"-->
+<!--                            android:textColor="@color/emergency_red_dark"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:clickable="false"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false" />-->
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -174,7 +183,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="Safety Tools"
-                android:textColor="@color/Onyx"
+                android:textColor="@color/text_on_light_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -204,7 +213,7 @@
                         android:focusable="true"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/safety_accent">
+                        app:cardBackgroundColor="@color/surface_secondary">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -214,9 +223,9 @@
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_hidden"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/reshot_icon_camera_i_yxsa4p7nk3"
                                 android:layout_marginBottom="8dp"
                                 android:scaleType="fitCenter"/>
 
@@ -225,7 +234,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Camera Detector"
-                                android:textColor="@color/safety_primary"
+                                android:textColor="@color/electric_blue"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:maxLines="1"
@@ -257,7 +266,7 @@
                         android:focusable="true"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/emergency_accent">
+                        app:cardBackgroundColor="@color/surface_secondary">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -267,9 +276,9 @@
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_siren"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/reshot_icon_sound_blaster_ktjwn23ure"
                                 android:layout_marginBottom="8dp"
                                 android:scaleType="fitCenter"/>
 
@@ -278,7 +287,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Siren"
-                                android:textColor="@color/emergency_primary"
+                                android:textColor="@color/electric_blue"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -321,7 +330,7 @@
                         android:focusable="true"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/location_accent">
+                        app:cardBackgroundColor="@color/surface_secondary">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -331,9 +340,9 @@
                             android:padding="16dp">
 
                             <View
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:background="@drawable/ic_helpline"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/reshot_icon_customer_service_fhk59a2wq7"
                                 android:layout_marginBottom="8dp"
                                 android:scaleType="fitCenter"/>
 
@@ -341,7 +350,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Helpline"
-                                android:textColor="@color/location_primary"
+                                android:textColor="@color/electric_blue"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -375,7 +384,7 @@
                         android:focusable="true"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="#EFE6FD">
+                        app:cardBackgroundColor="@color/surface_secondary">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -385,17 +394,17 @@
                             android:padding="16dp">
 
                             <View
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:background="@drawable/ic_add_contacts"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
                                 android:layout_marginBottom="8dp"
-                                android:scaleType="fitCenter"/>
+                                android:background="@drawable/reshot_icon_contacts_bl3s6z2mhu"
+                                android:scaleType="fitCenter" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Contacts"
-                                android:textColor="@color/accent_purple"
+                                android:textColor="@color/electric_blue"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -426,7 +435,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginBottom="16dp"
                 android:text="Quick Access"
-                android:textColor="@color/Onyx"
+                android:textColor="@color/text_on_light_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

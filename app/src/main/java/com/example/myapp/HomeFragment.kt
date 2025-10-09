@@ -77,11 +77,11 @@ class HomeFragment : Fragment() {
         mainViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
 
         // Set up contact status views (non-clickable)
-        view.findViewById<android.widget.TextView>(R.id.tv_contacts_configured)
-        view.findViewById<android.widget.TextView>(R.id.tv_contacts_not_configured)
+//        view.findViewById<android.widget.TextView>(R.id.tv_contacts_configured)
+//        view.findViewById<android.widget.TextView>(R.id.tv_contacts_not_configured)
 
         // Set up contacts observer
-        setupContactsObserver(view)
+//        setupContactsObserver(view)
 
         // Set up emergency button click listener with Clean Architecture
         view.findViewById<Button>(R.id.btn_activate_emergency).setOnClickListener {
@@ -195,23 +195,23 @@ class HomeFragment : Fragment() {
         checkSirenState()
     }
 
-    private fun setupContactsObserver(view: View) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            contactsViewModel.uiState.collect { state ->
-                val hasContacts = state.contacts.isNotEmpty()
-                val tvContactsConfigured = view.findViewById<android.widget.TextView>(R.id.tv_contacts_configured)
-                val tvContactsNotConfigured = view.findViewById<android.widget.TextView>(R.id.tv_contacts_not_configured)
-                if (hasContacts) {
-                    tvContactsConfigured.visibility = View.VISIBLE
-                    tvContactsNotConfigured.visibility = View.GONE
-                } else {
-                    tvContactsConfigured.visibility = View.GONE
-                    tvContactsNotConfigured.visibility = View.VISIBLE
-                }
-            }
-        }
-        contactsViewModel.handleEvent(ContactsViewModel.UiEvent.LoadContacts)
-    }
+//    private fun setupContactsObserver(view: View) {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            contactsViewModel.uiState.collect { state ->
+//                val hasContacts = state.contacts.isNotEmpty()
+////                val tvContactsConfigured = view.findViewById<android.widget.TextView>(R.id.tv_contacts_configured)
+////                val tvContactsNotConfigured = view.findViewById<android.widget.TextView>(R.id.tv_contacts_not_configured)
+//                if (hasContacts) {
+//                    tvContactsConfigured.visibility = View.VISIBLE
+//                    tvContactsNotConfigured.visibility = View.GONE
+//                } else {
+//                    tvContactsConfigured.visibility = View.GONE
+//                    tvContactsNotConfigured.visibility = View.VISIBLE
+//                }
+//            }
+//        }
+//        contactsViewModel.handleEvent(ContactsViewModel.UiEvent.LoadContacts)
+//    }
 
     private fun observeMainViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -353,7 +353,7 @@ class HomeFragment : Fragment() {
             sirenText?.text = "Stop Siren"
             sirenDesc?.text = "Tap to stop alarm"
         } else {
-            sirenCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.emergency_accent))
+            sirenCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.surface_secondary))
             val sirenText = sirenCard.findViewById<android.widget.TextView>(R.id.siren_title)
             val sirenDesc = sirenCard.findViewById<android.widget.TextView>(R.id.siren_description)
             sirenText?.text = "Siren"
