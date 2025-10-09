@@ -41,6 +41,9 @@
     <string name="call_permission_required">Call permission is required to make emergency calls</string>
     <string name="could_not_make_call">Could not make the call: %1$s</string>
     
+    <!-- API Keys -->
+    <string name="google_maps_api_key">AIzaSyCGTGxr2ctrxDRwZ1Q6HsRj-CqKI7DROXc</string>
+    
     <!-- Success Messages -->
     <string name="sos_sent_to_contacts">SOS sent to %1$d contact(s)</string>
     <string name="siren_started">Siren started</string>
