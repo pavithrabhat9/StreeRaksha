@@ -224,8 +224,8 @@
 
                             <ImageView
                                 android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/reshot_icon_camera_i_yxsa4p7nk3"
+                                android:layout_height="65dp"
+                                android:src="@drawable/reshot_icon_camera_xmtnsk4873"
                                 android:layout_marginBottom="8dp"
                                 android:scaleType="fitCenter"/>
 

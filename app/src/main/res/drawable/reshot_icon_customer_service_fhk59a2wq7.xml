@@ -77,7 +77,7 @@
       android:fillColor="#212121"/>
   <path
       android:pathData="M34,53.5h6v2.5h-6z"
-      android:fillColor="#212121"/>
+      android:fillColor="#F55536"/>
   <path
       android:pathData="M40,56.5h-6c-0.276,0 -0.5,-0.224 -0.5,-0.5v-2.5c0,-0.276 0.224,-0.5 0.5,-0.5h6c0.276,0 0.5,0.224 0.5,0.5V56C40.5,56.276 40.276,56.5 40,56.5zM34.5,55.5h5V54h-5V55.5z"
       android:fillColor="#212121"/>
