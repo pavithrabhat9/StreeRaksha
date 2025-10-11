@@ -1,6 +1,7 @@
 package com.example.myapp
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -39,7 +40,7 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     private lateinit var locationManager: LocationManager
     
     // UI components
-    private lateinit var shareToEmergencyButton: Button
+    private lateinit var shareToEmergencyButton: com.google.android.material.button.MaterialButton
     
     private var googleMap: GoogleMap? = null
     private var currentLocation: Location? = null
@@ -216,31 +217,21 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     
     private fun shareLocationToEmergencyContacts() {
         currentLocation?.let { location ->
-            // Get emergency contacts from shared preferences or database
-            // For demo purposes, we'll just show a success message
-            
-            viewLifecycleOwner.lifecycleScope.launch {
-                try {
-                    // Simulate sharing to emergency contacts
-                    // In a real app, you would send SMS or use another sharing method
-                    
-                    // Show success message
-                    Snackbar.make(
-                        requireView(),
-                        "Location shared with emergency contacts",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    
-                    // Start continuous location updates to keep emergency contacts updated
-                    startLocationUpdates()
-                } catch (e: Exception) {
-                    Snackbar.make(
-                        requireView(),
-                        "Failed to share location: ${e.message}",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
+            val latitude = location.latitude
+            val longitude = location.longitude
+            val locationUrl = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
+            val shareMessage = "My current location: $locationUrl"
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, shareMessage)
             }
+            startActivity(Intent.createChooser(shareIntent, "Share location via"))
+            
+            // Start continuous location updates to keep emergency contacts updated
+            startLocationUpdates()
+        } ?: run {
+            Snackbar.make(requireView(), "Location not available yet", Snackbar.LENGTH_SHORT).show()
         }
     }
     
