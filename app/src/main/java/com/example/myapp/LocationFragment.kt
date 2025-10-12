@@ -32,13 +32,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.example.myapp.data.LocationData
 
 class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapReadyCallback {
 
     private lateinit var locationManager: LocationManager
+    private lateinit var database: FirebaseDatabase
+    private lateinit var locationRef: DatabaseReference
+    private var sharingSessionId: String? = null
     
     // UI components
     private lateinit var shareToEmergencyButton: com.google.android.material.button.MaterialButton
@@ -89,10 +92,13 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
 
         // Initialize LocationManager
         locationManager = LocationManager(requireContext())
+        database = FirebaseDatabase.getInstance()
+        locationRef = database.getReference("live_locations")
         
         // Initialize UI components
         initializeViews(view)
         setupListeners()
+        updateShareButtonState() // Set initial button state
         
         // Initialize map
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -109,13 +115,36 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     private fun setupListeners() {
         // Share to emergency contacts button
         shareToEmergencyButton.setOnClickListener {
-            if (currentLocation == null) {
-                Snackbar.make(requireView(), "Location not available yet", Snackbar.LENGTH_SHORT).show()
-                return@setOnClickListener
+            if (isSharing) {
+                stopLocationUpdates()
+            } else {
+                if (currentLocation == null) {
+                    Snackbar.make(requireView(), "Location not available yet", Snackbar.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                shareLocationToEmergencyContacts()
             }
-            
-            shareLocationToEmergencyContacts()
+            updateShareButtonState()
         }
+    }
+
+    private fun stopLocationUpdates() {
+        locationUpdatesJob?.cancel()
+        locationUpdatesJob = null
+        isSharing = false
+        sharingSessionId?.let {
+            locationRef.child(it).removeValue()
+            sharingSessionId = null
+        }
+        Snackbar.make(requireView(), "Location sharing stopped", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun updateShareButtonState() {
+        val colorResId = if (isSharing) R.color.electric_blue else R.color.periwinkle
+        val textColorResId = if (isSharing) R.color.periwinkle else R.color.electric_blue
+        shareToEmergencyButton.text = if (isSharing) "Stop Sharing" else "Track Me"
+        shareToEmergencyButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), colorResId)
+        shareToEmergencyButton.setTextColor(ContextCompat.getColor(requireContext(), textColorResId))
     }
     
     private fun checkLocationPermission() {
@@ -223,19 +252,25 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     
     private fun shareLocationToEmergencyContacts() {
         currentLocation?.let { location ->
-            val latitude = location.latitude
-            val longitude = location.longitude
-            val locationUrl = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
-            val shareMessage = "My current location: $locationUrl"
+            // Generate a unique sharing session ID
+            sharingSessionId = locationRef.push().key
+            sharingSessionId?.let { sessionId ->
+                val latitude = location.latitude
+                val longitude = location.longitude
+                "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
+                // In a real app, this would be a dynamic link to a web page that displays the live location
+                val shareMessage = "I\'m sharing my live location with you. You can track me here: https://myapp-c30c0.web.app/?sessionId=$sessionId"
 
-            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, shareMessage)
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareMessage)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share live location via"))
+
+                // Start continuous location updates to send to Firebase
+                startLocationUpdates()
             }
-            startActivity(Intent.createChooser(shareIntent, "Share location via"))
-            
-            // Start continuous location updates to keep emergency contacts updated
-            startLocationUpdates()
         } ?: run {
             Snackbar.make(requireView(), "Location not available yet", Snackbar.LENGTH_SHORT).show()
         }
@@ -245,6 +280,7 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         if (isSharing) return
         
         isSharing = true
+        updateShareButtonState() // Update button state immediately after starting sharing
         
         locationUpdatesJob = locationManager.startLocationUpdates(
             interval = 10000, // 10 seconds
@@ -254,7 +290,12 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
             .onEach { location ->
                 currentLocation = location
                 updateMapWithLocation(location)
-                // In a real app, you would send updated location to emergency contacts
+                sharingSessionId?.let {
+                    val locationData = LocationData(location.latitude, location.longitude, System.currentTimeMillis())
+                    locationRef.child(it).setValue(locationData)
+                } ?: run {
+                    // No longer logging this warning as sharingSessionId should always be present here
+                }
             }
             .catch { e ->
                 Snackbar.make(
@@ -312,12 +353,8 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     
     override fun onPause() {
         super.onPause()
-        // Stop location updates when fragment is paused
-        if (isSharing) {
-            locationUpdatesJob?.cancel()
-            locationUpdatesJob = null
-            isSharing = false
-        }
+        // We no longer stop location updates here, as the fragment might only be paused (e.g., when switching tabs).
+        // Location updates will continue in the background until explicitly stopped or the fragment is destroyed.
     }
     
     // LocationCallback implementation

@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -177,7 +178,12 @@ class LocationManager(private val context: Context) {
             override fun onLocationResult(result: LocationResult) {
                 result.lastLocation?.let { location ->
                     callback?.onLocationReceived(location)
-                    trySend(location)
+                    val offerResult = trySend(location)
+                    if (!offerResult.isSuccess) {
+                        Log.e("LocationManager", "Failed to send location to flow: $offerResult")
+                    }
+                } ?: run {
+                    Log.w("LocationManager", "onLocationResult received with null lastLocation.")
                 }
             }
         }

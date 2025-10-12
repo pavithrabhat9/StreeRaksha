@@ -47,6 +47,9 @@ android {
 dependencies {
     // Firebase BoM (Bill of Materials) - Using the latest stable version
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+
+    // Firebase Database
+    implementation("com.google.firebase:firebase-database-ktx")
     
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth-ktx")
