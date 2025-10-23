@@ -25,31 +25,37 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.example.myapp.data.LocationData
+import com.example.myapp.databinding.FragmentLocationBinding
+import kotlinx.coroutines.flow.launchIn
 
-class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapReadyCallback {
+class LocationFragment : Fragment(), OnMapReadyCallback {
+
+    private var _binding: FragmentLocationBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var locationManager: LocationManager
     private lateinit var database: FirebaseDatabase
     private lateinit var locationRef: DatabaseReference
     private var sharingSessionId: String? = null
     
-    // UI components
-    private lateinit var shareToEmergencyButton: com.google.android.material.button.MaterialButton
-    
     private var googleMap: GoogleMap? = null
     private var currentLocation: Location? = null
     private var isSharing = false
     private var locationUpdatesJob: Job? = null
+    
+    // UI components
+    private lateinit var shareButton: MaterialButton
+    private lateinit var sharingStatusText: TextView
     
     // Permission request launcher
     private val requestPermissionLauncher = registerForActivityResult(
@@ -78,8 +84,9 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_location, container, false)
+    ): View {
+        _binding = FragmentLocationBinding.inflate(inflater, container, false)
+        return binding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,9 +103,11 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         locationRef = database.getReference("live_locations")
         
         // Initialize UI components
-        initializeViews(view)
+        shareButton = binding.shareToEmergencyButton
+        sharingStatusText = binding.sharingStatusText
+        
         setupListeners()
-        updateShareButtonState() // Set initial button state
+        updateSharingUI() // Set initial button state and text
         
         // Initialize map
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -108,13 +117,9 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         checkLocationPermission()
     }
     
-    private fun initializeViews(view: View) {
-        shareToEmergencyButton = view.findViewById(R.id.share_to_emergency_button)
-    }
-    
     private fun setupListeners() {
         // Share to emergency contacts button
-        shareToEmergencyButton.setOnClickListener {
+        shareButton.setOnClickListener {
             if (isSharing) {
                 stopLocationUpdates()
             } else {
@@ -124,7 +129,6 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
                 }
                 shareLocationToEmergencyContacts()
             }
-            updateShareButtonState()
         }
     }
 
@@ -136,15 +140,22 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
             locationRef.child(it).removeValue()
             sharingSessionId = null
         }
+        updateSharingUI()
         Snackbar.make(requireView(), "Location sharing stopped", Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun updateShareButtonState() {
-        val colorResId = if (isSharing) R.color.electric_blue else R.color.periwinkle
-        val textColorResId = if (isSharing) R.color.periwinkle else R.color.electric_blue
-        shareToEmergencyButton.text = if (isSharing) "Stop Sharing" else "Track Me"
-        shareToEmergencyButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), colorResId)
-        shareToEmergencyButton.setTextColor(ContextCompat.getColor(requireContext(), textColorResId))
+    private fun updateSharingUI() {
+        if (isSharing) {
+            shareButton.text = "Stop Sharing"
+            shareButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.emergency_red)
+            sharingStatusText.text = "Location sharing is currently ON."
+            sharingStatusText.setTextColor(ContextCompat.getColor(requireContext(), R.color.location_primary))
+        } else {
+            shareButton.text = "Start Sharing"
+            shareButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.periwinkle)
+            sharingStatusText.text = "Location sharing is currently OFF."
+            sharingStatusText.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_dark))
+        }
     }
     
     private fun checkLocationPermission() {
@@ -192,7 +203,7 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
     
     private fun getLocation() {
         viewLifecycleOwner.lifecycleScope.launch {
-            locationManager.getCurrentLocation(callback = this@LocationFragment)
+            locationManager.getCurrentLocation()
                 .onSuccess { location ->
                     if (location != null) {
                         currentLocation = location
@@ -280,19 +291,18 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         if (isSharing) return
         
         isSharing = true
-        updateShareButtonState() // Update button state immediately after starting sharing
+        updateSharingUI() // Update button state immediately after starting sharing
         
         locationUpdatesJob = locationManager.startLocationUpdates(
             interval = 10000, // 10 seconds
-            fastestInterval = 5000, // 5 seconds
-            callback = this
+            fastestInterval = 5000 // 5 seconds
         )
             .onEach { location ->
                 currentLocation = location
                 updateMapWithLocation(location)
-                sharingSessionId?.let {
+                sharingSessionId?.let { sessionId ->
                     val locationData = LocationData(location.latitude, location.longitude, System.currentTimeMillis())
-                    locationRef.child(it).setValue(locationData)
+                    locationRef.child(sessionId).setValue(locationData)
                 } ?: run {
                     // No longer logging this warning as sharingSessionId should always be present here
                 }
@@ -356,33 +366,10 @@ class LocationFragment : Fragment(), LocationManager.LocationCallback, OnMapRead
         // We no longer stop location updates here, as the fragment might only be paused (e.g., when switching tabs).
         // Location updates will continue in the background until explicitly stopped or the fragment is destroyed.
     }
-    
-    // LocationCallback implementation
-    override fun onLocationReceived(location: Location) {
-        // This will be called from the LocationManager
-        // We already handle this in the flow collector
-    }
-    
-    override fun onLocationError(errorMessage: String) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            Snackbar.make(requireView(), "Error: $errorMessage", Snackbar.LENGTH_SHORT).show()
-        }
-    }
-    
-    override fun onStatusChanged(status: LocationManager.LocationStatus) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            if (!status.hasPermission) {
-                requestLocationPermission()
-                Snackbar.make(requireView(), "Location permission not granted", Snackbar.LENGTH_SHORT).show()
-            } else if (!status.isEnabled) {
-                Snackbar.make(
-                    requireView(),
-                    "Please enable location services",
-                    Snackbar.LENGTH_LONG
-                ).setAction("Settings") {
-                    locationManager.openLocationSettings()
-                }.show()
-            }
-        }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        locationUpdatesJob?.cancel()
+        _binding = null
     }
 }
