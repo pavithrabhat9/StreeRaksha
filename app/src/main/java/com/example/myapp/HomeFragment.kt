@@ -241,6 +241,16 @@ class HomeFragment : Fragment() {
             }
         }
         state.successMessage?.let { message ->
+            // Extract SOS count from success message and update statistics
+            if (message.contains("SOS sent to")) {
+                val regex = "SOS sent to (\\d+) contact".toRegex()
+                val matchResult = regex.find(message)
+                val sosCount = matchResult?.groupValues?.get(1)?.toIntOrNull() ?: 0
+                if (sosCount > 0) {
+                    updateSOSStatistics(sosCount)
+                }
+            }
+            
             AlertDialog.Builder(requireContext())
                 .setTitle("Success")
                 .setMessage(message)
@@ -251,6 +261,16 @@ class HomeFragment : Fragment() {
         }
         state.nearbySearchQuery?.let { query ->
             performNearbySearch(query)
+        }
+    }
+
+    private fun updateSOSStatistics(sosCount: Int) {
+        try {
+            val prefs = requireContext().getSharedPreferences("SOSStats", Context.MODE_PRIVATE)
+            val currentCount = prefs.getInt("sos_alerts_sent", 0)
+            prefs.edit().putInt("sos_alerts_sent", currentCount + sosCount).apply()
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Error updating SOS statistics: ${e.message}", e)
         }
     }
 

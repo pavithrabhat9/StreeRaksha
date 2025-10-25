@@ -71,6 +71,15 @@
         <activity android:name=".ForgotPasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.MyApp" />
+        <activity android:name=".ChangePasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
+        <activity android:name=".PrivacySettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
+        <activity android:name=".TermsAndConditionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp" />
     </application>
 
 </manifest>

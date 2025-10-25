@@ -88,6 +88,9 @@ dependencies {
     // Utilities
     implementation("com.google.code.gson:gson:2.10.1")
     
+    // UI Components
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
