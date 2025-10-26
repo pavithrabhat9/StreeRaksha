@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 app:titleTextColor="@android:color/black">
-                
+
                 <TextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
-                    
+
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,238 +46,128 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:fillViewport="true"
             android:padding="16dp">
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                
+
                 <!-- Header Description -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Choose your preferred detection method to scan for hidden cameras:"
+                    android:text="Use sensor detection to scan for hidden cameras in your surroundings"
                     android:textSize="14sp"
                     android:textColor="@color/grey_dark"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
                     android:lineSpacingExtra="2dp"/>
 
-                <!-- Detection Methods -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
-
-                    <!-- Sensor Detection Card -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="6dp"
-                        app:cardBackgroundColor="@color/card_info">
-                        
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="20dp"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_sensor_detection"
-                                android:layout_marginEnd="16dp"/>
-                                
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-                                
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Sensor Detection"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_marginBottom="4dp"/>
-                                    
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Uses device sensors to detect electromagnetic fields"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text_on_light_secondary"/>
-                            </LinearLayout>
-                            
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_sensor_detection"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="START"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:backgroundTint="@color/trust_blue"
-                                app:cornerRadius="20dp"
-                                android:paddingHorizontal="16dp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Manual Detection Card -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="6dp"
-                        app:cardBackgroundColor="@color/card_warning">
-                        
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="20dp"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_manual_detection"
-                                android:layout_marginEnd="16dp"/>
-                                
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-                                
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Manual Detection"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_marginBottom="4dp"/>
-                                    
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Follow step-by-step instructions to find cameras"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text_on_light_secondary"/>
-                            </LinearLayout>
-                            
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_manual_detection"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="GUIDE"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:backgroundTint="@color/warning_orange"
-                                app:cornerRadius="20dp"
-                                android:paddingHorizontal="16dp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Infrared Detection Card -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="6dp"
-                        app:cardBackgroundColor="@color/card_safe">
-                        
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="20dp"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_infrared_detection"
-                                android:layout_marginEnd="16dp"/>
-                                
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-                                
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Infrared Detection"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_marginBottom="4dp"/>
-                                    
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Turn off lights and use camera to detect infrared signals"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text_on_light_secondary"/>
-                            </LinearLayout>
-                            
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_infrared_detection"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="SCAN"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:backgroundTint="@color/safe_green"
-                                app:cornerRadius="20dp"
-                                android:paddingHorizontal="16dp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-                
-                <!-- Tips Section -->
+                <!-- Sensor Detection Card -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="@color/grey_light">
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/card_info">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="20dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_sensor_detection"
+                            android:layout_marginEnd="16dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sensor Detection"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="4dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Uses device sensors to detect electromagnetic fields"
+                                android:textSize="14sp"
+                                android:textColor="@color/text_on_light_secondary"/>
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_sensor_detection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="START"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:backgroundTint="@color/trust_blue"
+                            app:cornerRadius="20dp"
+                            android:paddingHorizontal="16dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Detection Guide Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/card_info">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="💡 Detection Tips"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_info"
+                                android:layout_marginEnd="12dp"
+                                app:tint="@color/trust_blue"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Manual Detection Guide"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:lineSpacingExtra="2dp"
-                            android:text="• Best results in dark environments\n• Look for small LED lights or reflective surfaces\n• Check unusual objects like smoke detectors, clocks, or picture frames\n• Use flashlight to spot camera lenses"
-                            android:textColor="@color/grey_dark"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/manual_tips"
+                            android:textColor="@color/text_on_light_secondary"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-                
+
             </LinearLayout>
         </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

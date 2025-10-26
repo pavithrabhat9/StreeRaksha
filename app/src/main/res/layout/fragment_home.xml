@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface_primary"
+    android:background="@color/light_yellow"
     tools:context=".HomeFragment">
 
     <!-- Modern Header Section -->
@@ -13,7 +13,7 @@
         android:id="@+id/header_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/surface_primary"
+        android:background="@color/light_yellow"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
         android:paddingTop="12dp">
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stree"
-            android:textColor="@color/electric_blue"
+            android:textColor="@color/red_3"
             android:textSize="30sp"
             android:textStyle="bold"
             android:fontFamily="@font/montserratmedium"/>
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Raksha"
-            android:textColor="@color/accent_purple"
+            android:textColor="@color/red_1"
             android:textSize="30sp"
             android:textStyle="bold"
             android:fontFamily="@font/montserratmedium"/>
@@ -120,12 +120,14 @@
                         android:layout_height="70dp"
                         android:text="ACTIVATE EMERGENCY"
                         android:textAllCaps="true"
-                        android:textColor="@color/accent_purple"
+                        android:textColor="@color/red_2"
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:paddingVertical="12dp"
                         android:icon="@drawable/ic_alert"
                         android:backgroundTint="@color/surface_primary"
+                        android:elevation="12dp"
+                        android:outlineSpotShadowColor="@color/accent_purple"
                         app:cornerRadius="15dp"
                         app:rippleColor="@color/red_ripple"
                         style="@style/Widget.MaterialComponents.Button" />
@@ -224,7 +226,7 @@
 
                             <ImageView
                                 android:layout_width="60dp"
-                                android:layout_height="65dp"
+                                android:layout_height="60dp"
                                 android:src="@drawable/reshot_icon_camera_xmtnsk4873"
                                 android:layout_marginBottom="8dp"
                                 android:scaleType="fitCenter"/>

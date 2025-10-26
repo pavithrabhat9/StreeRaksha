@@ -123,18 +123,33 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    // If sign in fails, display a message to the user.
-                    val errorMessage =
-                        task.exception?.message ?: getString(R.string.authentication_failed)
-
-                    // Check if the error is due to wrong password
-                    if (errorMessage.contains("password is invalid", ignoreCase = true) ||
-                        errorMessage.contains("no user record", ignoreCase = true)
-                    ) {
-                        binding.tilPassword.error = getString(R.string.incorrect_password)
-                    } else {
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                    // Handle different error types with custom messages
+                    val exception = task.exception
+                    val errorMessage = when {
+                        exception is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -> {
+                            "Invalid email or password. Please try again."
+                        }
+                        exception is com.google.firebase.auth.FirebaseAuthInvalidUserException -> {
+                            "No account found with this email. Please sign up first."
+                        }
+                        exception?.message?.contains("password is invalid", ignoreCase = true) == true -> {
+                            "Incorrect password. Please try again."
+                        }
+                        exception?.message?.contains("no user record", ignoreCase = true) == true -> {
+                            "No account found with this email."
+                        }
+                        exception?.message?.contains("network error", ignoreCase = true) == true -> {
+                            "Network error. Please check your internet connection."
+                        }
+                        exception?.message?.contains("too many requests", ignoreCase = true) == true -> {
+                            "Too many failed login attempts. Please try again later."
+                        }
+                        else -> {
+                            "Login failed. Please check your credentials and try again."
+                        }
                     }
+
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
     }

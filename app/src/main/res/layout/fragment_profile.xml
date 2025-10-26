@@ -39,35 +39,24 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_profile_placeholder"
-                        app:civ_border_color="@color/trust_blue"
-                        app:civ_border_width="3dp" />
+                        android:src="@drawable/reshot_icon_profile_image_sbdvth9pea"
+                        app:civ_border_width="0dp" />
 
-                    <!-- Online Status Indicator -->
-                    <View
-                        android:id="@+id/status_indicator"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignBottom="@id/profile_image"
-                        android:layout_alignEnd="@id/profile_image"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@drawable/circle_status_online"
-                        android:elevation="4dp" />
-
-                    <!-- Edit Profile Button -->
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    <!-- Change text below profile image -->
+                    <TextView
                         android:id="@+id/fab_edit_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="8dp"
+                        android:layout_below="@id/profile_image"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/ic_edit"
-                        app:fabSize="mini"
-                        app:tint="@color/white"
-                        app:backgroundTint="@color/trust_blue" />
+                        android:text="Edit profile"
+                        android:textColor="@color/trust_blue"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="4dp" />
 
                 </RelativeLayout>
 
@@ -300,7 +289,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_lock"
-                        app:tint="@color/trust_blue" />
+                        app:tint="#CD5656" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -466,57 +455,6 @@
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <!-- Help & Support -->
-                <LinearLayout
-                    android:id="@+id/layout_help_support"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:background="@drawable/menu_item_background"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_help"
-                        app:tint="@color/accent_teal" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Help and Support"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Get help and contact support"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_arrow_right"
-                        app:tint="@color/text_tertiary" />
-
-                </LinearLayout>
 
                 <!-- Terms & Conditions -->
                 <LinearLayout

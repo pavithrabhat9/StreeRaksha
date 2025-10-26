@@ -1,20 +1,24 @@
 package com.example.myapp
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,6 +34,17 @@ class ProfileFragment : Fragment() {
     private var userPhone: String = ""
     private var memberSince: String = ""
 
+    // Activity Result Launcher for Edit Profile
+    private val editProfileLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Refresh profile data when returning from edit
+            loadSavedProfileImage()
+            loadUserData()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +54,7 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         firestore = Firebase.firestore
         userManager = UserManager.getInstance(requireContext())
-        
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -60,7 +75,10 @@ class ProfileFragment : Fragment() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             userEmail = currentUser.email ?: ""
-            
+
+            // Load profile image from SharedPreferences first
+            loadSavedProfileImage()
+
             // Fetch user data from Firestore
             lifecycleScope.launch {
                 try {
@@ -72,7 +90,7 @@ class ProfileFragment : Fragment() {
                     if (userDoc.exists()) {
                         userName = userDoc.getString("name") ?: "User"
                         userPhone = userDoc.getString("phone") ?: "Not provided"
-                        
+
                         // Format member since date
                         val createdAt = userDoc.getTimestamp("createdAt")
                         memberSince = if (createdAt != null) {
@@ -111,6 +129,54 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun loadSavedProfileImage() {
+        val currentUser = auth.currentUser ?: return
+
+        val prefs = requireContext().getSharedPreferences("UserProfile_${currentUser.uid}", android.content.Context.MODE_PRIVATE)
+        val savedUriString = prefs.getString("profileImageUri", null)
+
+        val profileImageView = view?.findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.profile_image)
+
+        if (savedUriString != null) {
+            try {
+                val uri = Uri.parse(savedUriString)
+
+                if (uri.scheme == "file") {
+                    val filePath = uri.path
+                    if (filePath != null) {
+                        val file = File(filePath)
+                        if (file.exists()) {
+                            Glide.with(this)
+                                .load(file)
+                                .skipMemoryCache(true)  // ADD THIS
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)  // ADD THIS
+                                .placeholder(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+                                .error(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+                                .into(profileImageView!!)
+                        } else {
+                            // File doesn't exist, show placeholder
+                            profileImageView?.setImageResource(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+                        }
+                    }
+                } else {
+                    Glide.with(this)
+                        .load(uri)
+                        .skipMemoryCache(true)  // ADD THIS
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)  // ADD THIS
+                        .placeholder(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+                        .error(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+                        .into(profileImageView!!)
+                }
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Error loading saved image: ${e.message}", e)
+                profileImageView?.setImageResource(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+            }
+        } else {
+            // No saved image, show placeholder
+            profileImageView?.setImageResource(R.drawable.reshot_icon_profile_image_sbdvth9pea)
+        }
+    }
+
     private fun updateUserInfo() {
         view?.let { view ->
             view.findViewById<android.widget.TextView>(R.id.tv_user_name)?.text = userName
@@ -123,20 +189,23 @@ class ProfileFragment : Fragment() {
     private fun loadUserStatistics(view: View) {
         // Load emergency contacts count
         loadEmergencyContactsCount(view)
-        
+
         // Load SOS alerts count (from SharedPreferences)
         loadSOSAlertsCount(view)
-        
+
         // Calculate safety score
         calculateSafetyScore(view)
     }
 
     private fun loadEmergencyContactsCount(view: View) {
+        val currentUser = auth.currentUser ?: return
+
         try {
-            val prefs = requireContext().getSharedPreferences("SosPreferences", android.content.Context.MODE_PRIVATE)
+            // CHANGE THIS: Add user ID to SharedPreferences name
+            val prefs = requireContext().getSharedPreferences("SosPreferences_${currentUser.uid}", android.content.Context.MODE_PRIVATE)
             val contactsJson = prefs.getString("contacts", "[]")
             val contacts = com.google.gson.Gson().fromJson(contactsJson, Array<com.example.myapp.model.ContactData>::class.java)
-            
+
             view.findViewById<android.widget.TextView>(R.id.tv_contacts_count)?.text = contacts.size.toString()
         } catch (e: Exception) {
             Log.e("ProfileFragment", "Error loading contacts count: ${e.message}", e)
@@ -145,8 +214,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadSOSAlertsCount(view: View) {
+        val currentUser = auth.currentUser ?: return
+
         try {
-            val prefs = requireContext().getSharedPreferences("SOSStats", android.content.Context.MODE_PRIVATE)
+            // CHANGE THIS: Add user ID to SharedPreferences name
+            val prefs = requireContext().getSharedPreferences("SOSStats_${currentUser.uid}", android.content.Context.MODE_PRIVATE)
             val sosCount = prefs.getInt("sos_alerts_sent", 0)
             view.findViewById<android.widget.TextView>(R.id.tv_sos_count)?.text = sosCount.toString()
         } catch (e: Exception) {
@@ -156,30 +228,33 @@ class ProfileFragment : Fragment() {
     }
 
     private fun calculateSafetyScore(view: View) {
+        val currentUser = auth.currentUser ?: return
+
         try {
-            val prefs = requireContext().getSharedPreferences("SosPreferences", android.content.Context.MODE_PRIVATE)
+            // CHANGE THIS: Add user ID to SharedPreferences name
+            val prefs = requireContext().getSharedPreferences("SosPreferences_${currentUser.uid}", android.content.Context.MODE_PRIVATE)
             val contactsJson = prefs.getString("contacts", "[]")
             val contacts = com.google.gson.Gson().fromJson(contactsJson, Array<com.example.myapp.model.ContactData>::class.java)
-            
+
             // Calculate safety score based on:
             // - Number of emergency contacts (max 50 points)
             // - App usage (max 30 points)
             // - Permission grants (max 20 points)
-            
+
             var score = 0
-            
+
             // Emergency contacts score (0-50 points)
             score += minOf(contacts.size * 10, 50)
-            
+
             // App usage score (0-30 points) - simplified
             score += 30
-            
+
             // Permission score (0-20 points) - simplified
             score += 20
-            
+
             val safetyScore = minOf(score, 100)
             view.findViewById<android.widget.TextView>(R.id.tv_safety_score)?.text = "$safetyScore%"
-            
+
         } catch (e: Exception) {
             Log.e("ProfileFragment", "Error calculating safety score: ${e.message}", e)
             view.findViewById<android.widget.TextView>(R.id.tv_safety_score)?.text = "85%"
@@ -187,8 +262,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupClickListeners(view: View) {
-        // Edit Profile Button
-        view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_edit_profile)?.setOnClickListener {
+        // Edit Profile Button (now a TextView)
+        view.findViewById<android.widget.TextView>(R.id.fab_edit_profile)?.setOnClickListener {
             showEditProfileDialog()
         }
 
@@ -205,11 +280,6 @@ class ProfileFragment : Fragment() {
         // Notification Settings
         view.findViewById<android.widget.LinearLayout>(R.id.layout_notification_settings)?.setOnClickListener {
             showNotificationSettingsDialog()
-        }
-
-        // Help & Support
-        view.findViewById<android.widget.LinearLayout>(R.id.layout_help_support)?.setOnClickListener {
-            showHelpSupportDialog()
         }
 
         // Terms & Conditions
@@ -234,7 +304,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showEditProfileDialog() {
-        startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+        editProfileLauncher.launch(Intent(requireContext(), EditProfileActivity::class.java))
     }
 
     private fun showChangePasswordDialog() {
@@ -249,14 +319,6 @@ class ProfileFragment : Fragment() {
         androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setTitle("Notification Settings")
             .setMessage("Notification settings will be available in the next update. Currently, you'll receive notifications for:\n\n• SOS alerts sent\n• Location sharing status\n• Emergency contact updates\n• App security alerts")
-            .setPositiveButton("OK", null)
-            .show()
-    }
-
-    private fun showHelpSupportDialog() {
-        androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setTitle("Help & Support")
-            .setMessage("For support, please contact us at:\n\nEmail: support@streeraksha.com\nPhone: +1-800-HELP-911\n\nWe're here to help you stay safe!")
             .setPositiveButton("OK", null)
             .show()
     }
@@ -288,17 +350,17 @@ class ProfileFragment : Fragment() {
             .setPositiveButton("Sign Out") { _, _ ->
                 // Sign out from Firebase
                 auth.signOut()
-                
+
                 // Clear the UserManager session
                 userManager.logout()
-            
-            // Navigate to LoginActivity
-            val intent = Intent(activity, LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                // Navigate to LoginActivity
+                val intent = Intent(activity, LoginActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+                activity?.finish()
             }
-            startActivity(intent)
-            activity?.finish()
-        }
             .setNegativeButton("Cancel", null)
             .show()
     }

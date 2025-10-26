@@ -39,6 +39,10 @@
     <color name="slate_gray">#708090</color>
     <color name="gray">#757575</color>
     <color name="light_gray">#E0E0E0</color>
+    <color name="light_yellow">#EAEBD0</color>
+    <color name="red_1">#DA6C6C</color>
+    <color name="red_2">#CD5656</color>
+    <color name="red_3">#AF3E3E</color>
     
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>

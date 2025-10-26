@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapp.viewmodel.ContactsViewModel
 import com.example.myapp.utils.FeaturePermissionHelper
+import com.google.firebase.auth.FirebaseAuth
 
 class SosActivity : AppCompatActivity() {
     private val CONTACT_PICKER_REQUEST = 1
@@ -118,13 +119,20 @@ class SosActivity : AppCompatActivity() {
     }
 
     private fun saveContacts() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val currentContacts = contactAdapter.contacts
-        val prefs = getSharedPreferences("SosPreferences", MODE_PRIVATE)
+        // CHANGE THIS: Add user ID to SharedPreferences name
+        val prefs = getSharedPreferences("SosPreferences_${currentUser.uid}", MODE_PRIVATE)
         val editor = prefs.edit()
         val contactsJson = gson.toJson(currentContacts)
         editor.putString("contacts", contactsJson)
         editor.apply()
-        
+
         // Update the ViewModel
         contactsViewModel.loadContacts()
     }
@@ -154,24 +162,30 @@ class SosActivity : AppCompatActivity() {
                 val cursor = contentResolver.query(uri, null, null, null, null)
                 cursor?.use {
                     if (it.moveToFirst()) {
+                        // Check if already have 5 contacts
+                        if (contactAdapter.contacts.size >= 5) {
+                            Toast.makeText(this, "Maximum 5 contacts can be added", Toast.LENGTH_LONG).show()
+                            return@use
+                        }
+
                         // Safely get column indices
                         val nameColumn = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
                         val phoneColumn = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                        
+
                         // Check if columns exist before accessing them
                         if (nameColumn >= 0 && phoneColumn >= 0) {
                             val name = it.getString(nameColumn) ?: "Unknown"
                             val phone = it.getString(phoneColumn) ?: return@use
-                            
+
                             // Validate phone number is not empty
                             if (phone.isBlank()) {
                                 Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show()
                                 return@use
                             }
-                            
+
                             val currentContacts = contactAdapter.contacts.toMutableList()
                             val newContact = ContactData(name, phone)
-                            
+
                             val alreadyExists = currentContacts.any { contact -> contact.phone == phone }
                             if (!alreadyExists) {
                                 currentContacts.add(newContact)

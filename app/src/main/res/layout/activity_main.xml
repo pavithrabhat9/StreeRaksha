@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/surface_primary"
+        android:background="@color/light_yellow"
         android:elevation="2dp"
         style="@style/Widget.MyApp.BottomNavigationView"
         app:menu="@menu/bottom_nav_menu"
@@ -29,6 +29,6 @@
         app:itemTextAppearanceActive="@style/TextAppearance.MyApp.BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/TextAppearance.MyApp.BottomNavigationView"
         app:itemBackground="@drawable/nav_item_background"
-        app:itemActiveIndicatorStyle="@color/fui_transparent"/>
+        app:itemActiveIndicatorStyle="@color/trust_blue"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

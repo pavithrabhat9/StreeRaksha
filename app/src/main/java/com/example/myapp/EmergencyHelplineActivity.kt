@@ -129,6 +129,4 @@ class EmergencyHelplineActivity : AppCompatActivity() {
             // Phone permission granted, can proceed with call features
         }
     }
-
-    // This method is no longer needed as we're handling everything in checkCallPermission
 }

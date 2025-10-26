@@ -183,4 +183,18 @@
         <item>Other</item>
         <item>Prefer not to say</item>
     </string-array>
+
+    <!-- Manual Camera Detection Tips -->
+    <string name="manual_tips">
+        1. Turn off the lights and scan the room using a flashlight or phone torch; hidden camera lenses often reflect light and appear as small bright spots.
+        \n\n2. Perform the fingertip test on mirrors: if there is no gap between your finger and its reflection, it could be a two-way mirror.
+        \n\n3. Inspect common hiding spots such as smoke detectors, alarm clocks, air purifiers, wall hooks, picture frames, and USB chargers.
+        \n\n4. Use the phone’s front camera in a dark room to detect infrared LEDs; look for small glowing white or pinkish dots not visible to the naked eye.
+        \n\n5. Connect to the room’s Wi-Fi and check connected devices; suspicious names like “IPCAM,” “ESP32,” or “Cam360” could indicate hidden cameras.
+        \n\n6. If an unknown Wi-Fi hotspot remains active even after disconnecting your devices, it may belong to a wireless spy camera.
+        \n\n7. Use an FM radio tuned to static and move it near suspicious objects; sudden buzzing or interference can indicate a transmitting device.
+        \n\n8. Watch for small holes, LED lights, or objects facing private areas such as beds, bathrooms, or changing spaces.
+        \n\n9. Do not touch or move any suspected devices; take photos and report them to authorities or management immediately.
+        \n\n10. Always stay alert and perform these checks whenever you stay in new or unfamiliar places.
+</string>
 </resources>

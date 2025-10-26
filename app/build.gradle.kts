@@ -57,8 +57,11 @@ dependencies {
     // Firestore
     implementation("com.google.firebase:firebase-firestore-ktx")
     
-    // Firebase UI for Auth
-    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    // Firebase Storage - temporarily disabled due to dependency issues
+    // implementation("com.google.firebase:firebase-storage:20.3.0")
+    
+    // Firebase UI for Auth - temporarily disabled due to dependency issues
+    // implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     
     // Firebase Analytics
     implementation("com.google.firebase:firebase-analytics-ktx")
@@ -90,6 +93,9 @@ dependencies {
     
     // UI Components
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    
+    // Image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")

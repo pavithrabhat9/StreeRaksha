@@ -82,14 +82,6 @@ class CameraDetectorActivity : AppCompatActivity(), SensorEventListener {
         binding.btnSensorDetection.setOnClickListener {
             startSensorDetection()
         }
-        
-        binding.btnManualDetection.setOnClickListener {
-            showManualDetectionGuide()
-        }
-        
-        binding.btnInfraredDetection.setOnClickListener {
-            startInfraredDetection()
-        }
     }
     
     private fun startSensorDetection() {
@@ -143,60 +135,60 @@ class CameraDetectorActivity : AppCompatActivity(), SensorEventListener {
         showToast("Sensor detection stopped")
     }
     
-    private fun showManualDetectionGuide() {
-        val guideSteps = arrayOf(
-            "Step 1: Turn off all lights in the room",
-            "Step 2: Use your phone's flashlight to shine on suspicious objects",
-            "Step 3: Look for small glints or reflections from camera lenses",
-            "Step 4: Check common hiding spots:",
-            "   • Smoke detectors",
-            "   • Picture frames",
-            "   • Clock faces",
-            "   • Power outlets",
-            "   • Air vents",
-            "   • Decorative objects",
-            "Step 5: Use your phone's camera to look for infrared lights",
-            "Step 6: Check for unusual wifi networks or bluetooth devices"
-        )
-        
-        AlertDialog.Builder(this)
-            .setTitle("Manual Detection Guide")
-            .setMessage(guideSteps.joinToString("\n\n"))
-            .setPositiveButton("Start Detection") { _, _ ->
-                startInfraredDetection()
-            }
-            .setNegativeButton("Close", null)
-            .show()
-        
-        showToast(getString(R.string.manual_detection_started))
-    }
-    
-    private fun startInfraredDetection() {
-        FeaturePermissionHelper.Companion.CameraFeature.checkPermissions(this) {
-            startCameraAfterPermissionGranted()
-        }
-        
-        showToast(getString(R.string.infrared_detection_started))
-        
-        // Intent to open camera for infrared detection
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (intent.resolveActivity(packageManager) != null) {
-            AlertDialog.Builder(this)
-                .setTitle("Infrared Detection Instructions")
-                .setMessage("1. Turn off all lights\n2. Use the camera to scan the room\n3. Look for small bright spots or glowing lights\n4. Hidden cameras often emit infrared light visible through phone cameras")
-                .setPositiveButton("Open Camera") { _, _ ->
-                    try {
-                        startActivity(intent)
-                    } catch (e: Exception) {
-                        showToast("Unable to open camera: ${e.message}")
-                    }
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
-        } else {
-            showToast("Camera not available")
-        }
-    }
+//    private fun showManualDetectionGuide() {
+//        val guideSteps = arrayOf(
+//            "Step 1: Turn off all lights in the room",
+//            "Step 2: Use your phone's flashlight to shine on suspicious objects",
+//            "Step 3: Look for small glints or reflections from camera lenses",
+//            "Step 4: Check common hiding spots:",
+//            "   • Smoke detectors",
+//            "   • Picture frames",
+//            "   • Clock faces",
+//            "   • Power outlets",
+//            "   • Air vents",
+//            "   • Decorative objects",
+//            "Step 5: Use your phone's camera to look for infrared lights",
+//            "Step 6: Check for unusual wifi networks or bluetooth devices"
+//        )
+//
+//        AlertDialog.Builder(this)
+//            .setTitle("Manual Detection Guide")
+//            .setMessage(guideSteps.joinToString("\n\n"))
+//            .setPositiveButton("Start Detection") { _, _ ->
+//                startInfraredDetection()
+//            }
+//            .setNegativeButton("Close", null)
+//            .show()
+//
+//        showToast(getString(R.string.manual_detection_started))
+//    }
+//
+//    private fun startInfraredDetection() {
+//        FeaturePermissionHelper.Companion.CameraFeature.checkPermissions(this) {
+//            startCameraAfterPermissionGranted()
+//        }
+//
+//        showToast(getString(R.string.infrared_detection_started))
+//
+//        // Intent to open camera for infrared detection
+//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        if (intent.resolveActivity(packageManager) != null) {
+//            AlertDialog.Builder(this)
+//                .setTitle("Infrared Detection Instructions")
+//                .setMessage("1. Turn off all lights\n2. Use the camera to scan the room\n3. Look for small bright spots or glowing lights\n4. Hidden cameras often emit infrared light visible through phone cameras")
+//                .setPositiveButton("Open Camera") { _, _ ->
+//                    try {
+//                        startActivity(intent)
+//                    } catch (e: Exception) {
+//                        showToast("Unable to open camera: ${e.message}")
+//                    }
+//                }
+//                .setNegativeButton("Cancel", null)
+//                .show()
+//        } else {
+//            showToast("Camera not available")
+//        }
+//    }
     
     override fun onSensorChanged(event: SensorEvent?) {
         if (!isDetecting || event == null) return
@@ -267,28 +259,6 @@ class CameraDetectorActivity : AppCompatActivity(), SensorEventListener {
     
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Not needed for this implementation
-    }
-    
-    private fun startCameraAfterPermissionGranted() {
-        showToast(getString(R.string.infrared_detection_started))
-
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (intent.resolveActivity(packageManager) != null) {
-            AlertDialog.Builder(this)
-                .setTitle("Infrared Detection Instructions")
-                .setMessage("1. Turn off all lights\n2. Use the camera to scan the room\n3. Look for small bright spots or glowing lights\n4. Hidden cameras often emit infrared light visible through phone cameras")
-                .setPositiveButton("Open Camera") { _, _ ->
-                    try {
-                        startActivity(intent)
-                    } catch (e: Exception) {
-                        showToast("Unable to open camera: ${e.message}")
-                    }
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
-        } else {
-            showToast("Camera not available")
-        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

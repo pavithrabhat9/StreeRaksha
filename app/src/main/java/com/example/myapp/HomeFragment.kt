@@ -191,6 +191,12 @@ class HomeFragment : Fragment() {
         super.onResume()
         // Refresh contacts when returning to the fragment
         contactsViewModel.handleEvent(ContactsViewModel.UiEvent.LoadContacts)
+
+        // If siren was active but media player is gone, clear stale state
+        if (isSirenActive && mediaPlayer == null) {
+            stopSiren(silent = true)
+        }
+
         // Check siren state
         checkSirenState()
     }
@@ -265,8 +271,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateSOSStatistics(sosCount: Int) {
+        val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Log.e("HomeFragment", "User not logged in, cannot update SOS statistics")
+            return
+        }
+
         try {
-            val prefs = requireContext().getSharedPreferences("SOSStats", Context.MODE_PRIVATE)
+            // CHANGE THIS: Add user ID to SharedPreferences name
+            val prefs = requireContext().getSharedPreferences("SOSStats_${currentUser.uid}", Context.MODE_PRIVATE)
             val currentCount = prefs.getInt("sos_alerts_sent", 0)
             prefs.edit().putInt("sos_alerts_sent", currentCount + sosCount).apply()
         } catch (e: Exception) {
