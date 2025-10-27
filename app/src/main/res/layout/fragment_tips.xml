@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Personal Safety"
-                        android:textColor="#FF8A65"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -130,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Awareness"
-                        android:textColor="#FFB74D"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -175,7 +175,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Social"
-                        android:textColor="#EF5350"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -220,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Home Security"
-                        android:textColor="#EC407A"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -265,7 +265,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Transportation"
-                        android:textColor="#FF8A65"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -310,7 +310,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Digital Safety"
-                        android:textColor="#FF8A65"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>

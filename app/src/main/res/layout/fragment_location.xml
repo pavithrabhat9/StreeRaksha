@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toTopOf="@id/share_to_emergency_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share_to_emergency_button"
             android:layout_width="wrap_content"
@@ -82,10 +82,10 @@
             android:layout_marginBottom="36dp"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
-            app:backgroundTint="@color/periwinkle"
+            app:backgroundTint="@color/baby_pink"
             android:text="Start Sharing"
             android:textAllCaps="true"
-            android:textColor="@color/electric_blue"
+            android:textColor="@color/dark_pink"
             app:cornerRadius="18dp"
             android:textStyle="bold"
             android:textSize="14sp"

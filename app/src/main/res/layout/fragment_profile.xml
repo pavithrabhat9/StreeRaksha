@@ -51,7 +51,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
                         android:text="Edit profile"
-                        android:textColor="@color/trust_blue"
+                        android:textColor="@color/electric_blue"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:clickable="true"
@@ -108,14 +108,14 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="6dp"
                         android:src="@drawable/ic_calendar"
-                        app:tint="@color/trust_blue" />
+                        app:tint="@color/electric_blue" />
 
                     <TextView
                         android:id="@+id/tv_member_since"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Member since Jan 2024"
-                        android:textColor="@color/trust_blue"
+                        android:textColor="@color/electric_blue"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 

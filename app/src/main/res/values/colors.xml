@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary Emergency Colors -->
-    <color name="emergency_red">#D32F2F</color>
+<!--    <color name="emergency_red">#D32F2F</color>-->
     <color name="emergency_red_dark">#B71C1C</color>
     <color name="emergency_red_light">#FFCDD2</color>
     <color name="red_primary">#D32F2F</color>      <!-- Button background -->
     <color name="red_ripple">#FFCDD2</color>      <!-- Light red ripple -->
 
     <!-- Alert & Warning Colors -->
-    <color name="warning_orange">#FF9800</color>
+<!--    <color name="warning_orange">#FF9800</color>-->
     <color name="warning_orange_dark">#F57C00</color>
     <color name="emergency_orange">#FF9800</color>
     <color name="caution_yellow">#FFC107</color>
     
     <!-- Safety & Success Colors -->
-    <color name="safe_green">#4CAF50</color>
+<!--    <color name="safe_green">#4CAF50</color>-->
     <color name="safe_green_dark">#388E3C</color>
     <color name="safe_green_light">#C8E6C9</color>
     
@@ -30,7 +30,7 @@
     <color name="ivory">#FFFFF0</color>
     <color name="soft_pink">#F5B7B1</color>
     <color name="midnight_blue">#2C3E50</color>
-    <color name="electric_blue">#11005E</color>
+    <color name="electric_blue">#EC407A</color>
     <color name="dark_purple">#491352</color>
     <color name="lavender_blue">#9191E8</color>
     <color name="pale_violet">#B7B7F0</color>
@@ -43,6 +43,9 @@
     <color name="red_1">#DA6C6C</color>
     <color name="red_2">#CD5656</color>
     <color name="red_3">#AF3E3E</color>
+    <color name="dark_pink">#880E4F</color>
+    <color name="light_pink">#D81B60</color>
+    <color name="baby_pink">#FCE4EC</color>
     
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
@@ -51,6 +54,7 @@
     <color name="grey_medium">#9E9E9E</color>
     <color name="grey_dark">#424242</color>
     <color name="Onyx">#353839</color>
+    <color name="black_800">#424242</color>
     
     <!-- Card Background Colors -->
     <color name="card_emergency">#FFEBEE</color>
@@ -88,9 +92,9 @@
     <color name="surface_primary">#FFFFFF</color>
     <color name="surface_secondary">#F8F9FA</color>
     <color name="surface_tertiary">#E9ECEF</color>
-    <color name="text_primary">#212529</color>
-    <color name="text_secondary">#6C757D</color>
-    <color name="text_tertiary">#ADB5BD</color>
+<!--    <color name="text_primary">#212529</color>-->
+<!--    <color name="text_secondary">#6C757D</color>-->
+<!--    <color name="text_tertiary">#ADB5BD</color>-->
     
     <!-- Card Background Colors (Enhanced) -->
     <color name="card_emergency_bg">#FFF5F5</color>
@@ -111,4 +115,32 @@
     <color name="text_error_high_contrast">#C62828</color>
     <color name="text_warning_high_contrast">#E65100</color>
     <color name="text_info_high_contrast">#1565C0</color>
+
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F8F9FA</color>
+    <color name="surface_elevated">#FFFFFF</color>
+
+    <!-- === TEXT COLORS === -->
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_tertiary">#9CA3AF</color>
+
+    <!-- === ACCENT (BURGUNDY) === -->
+    <color name="accent_primary">#BE123C</color>        <!-- Deep burgundy -->
+    <color name="accent_light">#FFE4E6</color>          <!-- Light pink/burgundy -->
+    <color name="accent_dark">#881337</color>           <!-- Dark burgundy -->
+
+    <!-- === SUPPORTING COLORS === -->
+    <color name="success_green">#059669</color>
+    <color name="border_light">#E5E7EB</color>
+    <color name="divider">#F3F4F6</color>
+
+    <!-- === LEGACY (Keep for backward compatibility) === -->
+    <color name="emergency_red">#DC2626</color>
+    <color name="safe_green">#059669</color>
+    <color name="warning_orange">#F59E0B</color>
+
+    <color name="coral_1">#F87171</color>        <!-- Soft red/coral -->
+    <color name="coral_2">#FEE2E2</color>
+    <color name="coral_3">#DC2626</color>
 </resources>
