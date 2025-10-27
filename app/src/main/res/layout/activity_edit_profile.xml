@@ -75,7 +75,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="8dp"
                             android:text="Change"
-                            android:textColor="@color/trust_blue"
+                            android:textColor="@color/electric_blue"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:clickable="true"
@@ -126,10 +126,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:hint="Full Name"
-                        app:boxStrokeColor="@color/trust_blue"
+                        app:boxStrokeColor="@color/electric_blue"
                         app:hintTextColor="@color/text_secondary"
                         app:startIconDrawable="@drawable/ic_person"
-                        app:startIconTint="@color/trust_blue">
+                        app:startIconTint="@color/electric_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_name"
@@ -146,10 +146,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:hint="Email Address"
-                        app:boxStrokeColor="@color/trust_blue"
+                        app:boxStrokeColor="@color/electric_blue"
                         app:hintTextColor="@color/text_secondary"
                         app:startIconDrawable="@drawable/ic_email"
-                        app:startIconTint="@color/trust_blue">
+                        app:startIconTint="@color/electric_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
@@ -166,10 +166,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:hint="Phone Number"
-                        app:boxStrokeColor="@color/trust_blue"
+                        app:boxStrokeColor="@color/electric_blue"
                         app:hintTextColor="@color/text_secondary"
                         app:startIconDrawable="@drawable/ic_phone"
-                        app:startIconTint="@color/trust_blue">
+                        app:startIconTint="@color/electric_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_phone"
@@ -210,7 +210,7 @@
                     android:layout_marginStart="8dp"
                     android:text="Save Changes"
                     android:textColor="@color/white"
-                    app:backgroundTint="@color/trust_blue"
+                    app:backgroundTint="@color/electric_blue"
                     app:cornerRadius="12dp" />
 
             </LinearLayout>

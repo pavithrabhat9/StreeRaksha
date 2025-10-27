@@ -312,7 +312,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showPrivacySettingsDialog() {
-        startActivity(Intent(requireContext(), PrivacySettingsActivity::class.java))
+//      startActivity(Intent(requireContext(), PrivacySettingsActivity::class.java))
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Privacy Settings")
+            .setMessage("Privacy settings will be available in the next update. We are committed to protecting your data:\n\n• All information is stored securely on your device\n• Your location is only shared during emergencies\n• No data is shared with third parties\n• You have full control over app permissions")
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun showNotificationSettingsDialog() {

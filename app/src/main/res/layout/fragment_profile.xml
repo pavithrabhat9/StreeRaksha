@@ -624,7 +624,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/emergency_red"
+            app:backgroundTint="@color/accent_primary"
             app:cornerRadius="12dp"
             app:iconGravity="textStart"
             app:iconPadding="8dp" />
