@@ -131,7 +131,7 @@ class CameraDetectorActivity : AppCompatActivity(), SensorEventListener {
         isDetecting = false
         sensorManager.unregisterListener(this)
         binding.btnSensorDetection.text = "START"
-        binding.btnSensorDetection.backgroundTintList = ContextCompat.getColorStateList(this, R.color.trust_blue)
+        binding.btnSensorDetection.backgroundTintList = ContextCompat.getColorStateList(this, R.color.dark_pink)
         showToast("Sensor detection stopped")
     }
     

@@ -198,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Camera Detector"
-                                android:textColor="@color/dark_pink"
+                                android:textColor="@color/light_pink"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:maxLines="1"
@@ -251,7 +251,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Siren"
-                                android:textColor="@color/dark_pink"
+                                android:textColor="@color/light_pink"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -314,7 +314,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Helpline"
-                                android:textColor="@color/dark_pink"
+                                android:textColor="@color/light_pink"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -368,7 +368,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Contacts"
-                                android:textColor="@color/dark_pink"
+                                android:textColor="@color/light_pink"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:gravity="center"
@@ -439,7 +439,7 @@
                             <View
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:background="@drawable/ic_police"/>
+                                android:background="@drawable/policeman_5600595"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -482,7 +482,7 @@
                             <View
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:background="@drawable/ic_hospital" />
+                                android:background="@drawable/hospital_6" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -525,7 +525,7 @@
                             <View
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:background="@drawable/ic_pharmacy"/>
+                                android:background="@drawable/ic_medic"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
