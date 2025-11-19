@@ -63,34 +63,69 @@ class PermissionManager private constructor() {
 
     fun checkAndRequestPermissions(activity: Activity, callback: PermissionCallback) {
         this.callback = callback
-        
+
         val sharedPref = activity.getSharedPreferences("PermissionPrefs", Context.MODE_PRIVATE)
         isFirstTimeRequest = sharedPref.getBoolean("isFirstTimeRequest", true)
-        
+
         val deniedPermissions = getDeniedPermissions(activity)
 
         if (deniedPermissions.isEmpty()) {
             callback.onPermissionsGranted()
             return
         }
-        
+
         if (isFirstTimeRequest) {
-            // First time - show explanation and request permissions
-            showFirstTimePermissionDialog(activity, deniedPermissions)
+            // First time - directly request permissions (no custom dialog)
+            ActivityCompat.requestPermissions(
+                activity,
+                deniedPermissions.toTypedArray(),
+                PERMISSION_REQUEST_CODE
+            )
+            sharedPref.edit().putBoolean("isFirstTimeRequest", false).apply()
         } else {
-            // Not first time - check if any permissions are permanently denied
+            // Not first time - check if permanently denied
             val permanentlyDenied = deniedPermissions.filter { permission ->
                 !ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
             }
 
             if (permanentlyDenied.isNotEmpty()) {
-                showSettingsDialog(activity, permanentlyDenied)
+                showSimplePermissionDialog(activity, permanentlyDenied)
             } else {
-                showPermissionDeniedDialog(activity, deniedPermissions)
+                showSimplePermissionDialog(activity, deniedPermissions)
             }
         }
     }
-    
+
+    private fun showSimplePermissionDialog(activity: Activity, deniedPermissions: List<String>) {
+        val message = "This action needs permission to continue."
+
+        val dialogView = LayoutInflater.from(activity).inflate(com.example.myapp.R.layout.dialog_permission, null)
+        val titleView = dialogView.findViewById<TextView>(com.example.myapp.R.id.tv_permission_title)
+        val messageView = dialogView.findViewById<TextView>(com.example.myapp.R.id.tv_permission_message)
+        val btnGrant = dialogView.findViewById<Button>(com.example.myapp.R.id.btn_grant)
+        val btnCancel = dialogView.findViewById<Button>(com.example.myapp.R.id.btn_cancel)
+
+        titleView.text = "Permission Required"
+        messageView.text = message
+        btnGrant.text = "Go to Settings"
+
+        val alertDialog = AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        btnGrant.setOnClickListener {
+            alertDialog.dismiss()
+            openAppSettings(activity)
+        }
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+            callback?.onPermissionsDenied(deniedPermissions)
+        }
+
+        alertDialog.show()
+    }
+
     fun handlePermissionResult(
         activity: Activity,
         requestCode: Int,

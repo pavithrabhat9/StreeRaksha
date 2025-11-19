@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@drawable/dialog_background">
-
-    <ImageView
-        android:id="@+id/iv_permission_icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_alert"
-        android:tint="@color/emergency_orange" />
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/tv_permission_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="start"
         android:text="Permissions Required"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:textColor="@color/light_pink"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_permission_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:lineSpacingExtra="4dp"
         android:text="This app needs permissions to function properly"
-        android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:gravity="center"
-        android:layout_marginBottom="24dp"
-        android:lineSpacingExtra="4dp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:layout_marginBottom="0dp">
 
         <Button
             android:id="@+id/btn_cancel"
@@ -49,16 +42,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:textColor="@color/emergency_red"
-            android:layout_marginEnd="8dp" />
+            android:textColor="@color/light_pink" />
 
         <Button
             android:id="@+id/btn_grant"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grant Permissions"
-            android:backgroundTint="@color/trust_blue" />
+            android:gravity="end"
+            android:text="Grant Permissions" />
 
     </LinearLayout>
 

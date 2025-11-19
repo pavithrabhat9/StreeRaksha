@@ -31,29 +31,14 @@ class FeaturePermissionHelper {
                 showFeaturePermissionDialog(activity, featureName, missingPermissions)
             }
         }
-        
+
         private fun showFeaturePermissionDialog(
             activity: Activity,
             featureName: String,
             missingPermissions: List<String>
         ) {
-            val permissionNames = missingPermissions.map { permission ->
-                when (permission) {
-                    Manifest.permission.CAMERA -> "Camera"
-                    Manifest.permission.SEND_SMS -> "SMS"
-                    Manifest.permission.ACCESS_FINE_LOCATION -> "Location"
-                    Manifest.permission.ACCESS_COARSE_LOCATION -> "Location"
-                    Manifest.permission.CALL_PHONE -> "Phone"
-                    Manifest.permission.READ_CONTACTS -> "Contacts"
-                    Manifest.permission.VIBRATE -> "Vibration"
-                    else -> permission.substringAfterLast(".")
-                }
-            }.distinct()
-            
-            val message = "$featureName requires the following permissions:\n\n" +
-                    permissionNames.joinToString("\n• ", "• ") +
-                    "\n\nPlease enable these permissions in Settings to use this feature."
-            
+            val message = "This action needs permission to continue."
+
             val dialogView = LayoutInflater.from(activity).inflate(com.example.myapp.R.layout.dialog_permission, null)
             val titleView = dialogView.findViewById<TextView>(com.example.myapp.R.id.tv_permission_title)
             val messageView = dialogView.findViewById<TextView>(com.example.myapp.R.id.tv_permission_message)

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.myapp.utils.PermissionManager
 import androidx.fragment.app.Fragment
@@ -74,28 +75,25 @@ class MainActivity : AppCompatActivity() {
     private fun checkFirstLaunchAndPermissions() {
         val sharedPref = getSharedPreferences("AppPrefs", MODE_PRIVATE)
         val isFirstLaunch = sharedPref.getBoolean("isFirstLaunch", true)
-        
+
         if (isFirstLaunch) {
             // Mark as not first launch anymore
             sharedPref.edit().putBoolean("isFirstLaunch", false).apply()
-            
-            // Show permission dialog on first launch
+
+            // Directly request permissions using system dialog (no custom dialog)
             val permissionManager = PermissionManager.getInstance()
-            permissionManager.checkAndRequestPermissions(this, object : PermissionManager.PermissionCallback {
-                override fun onPermissionsGranted() {
-                    // All permissions granted, app works normally
-                }
+            val deniedPermissions = permissionManager.getMissingPermissions(this)
 
-                override fun onPermissionsDenied(deniedPermissions: List<String>) {
-                    // User denied permissions, let them continue exploring
-                }
-
-                override fun onPermissionsPermanentlyDenied(permanentlyDeniedPermissions: List<String>) {
-                    // User permanently denied, guide to settings later
-                }
-            })
+            if (deniedPermissions.isNotEmpty()) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    deniedPermissions.toTypedArray(),
+                    PermissionManager.PERMISSION_REQUEST_CODE
+                )
+            }
         }
     }
+
     // Permission handling is now done by PermissionManager
     override fun onRequestPermissionsResult(
         requestCode: Int,
