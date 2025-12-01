@@ -1,3 +1,7 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -35,6 +39,18 @@ android {
             )
         }
     }
+
+    applicationVariants.all variant@{
+        val variantName = this@variant.versionName
+        outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val appName = "StreeRaksha"
+
+            output.outputFileName = "${appName}_v${variantName}_${date}.apk"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -56,13 +72,7 @@ dependencies {
     
     // Firestore
     implementation("com.google.firebase:firebase-firestore-ktx")
-    
-    // Firebase Storage - temporarily disabled due to dependency issues
-    // implementation("com.google.firebase:firebase-storage:20.3.0")
-    
-    // Firebase UI for Auth - temporarily disabled due to dependency issues
-    // implementation("com.firebaseui:firebase-ui-auth:8.0.2")
-    
+
     // Firebase Analytics
     implementation("com.google.firebase:firebase-analytics-ktx")
     
