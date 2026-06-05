@@ -36,7 +36,7 @@ Women's safety shouldn't depend on luck or timing. StreeRaksha is an Android app
   </tr>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/ed983fa4-83c8-42b5-9c92-75a6f166cad6" width="180"/></td>
-    <td><img src="https://github.com/user-attachments/assets/6f7c8bdf-eeaa-4c3b-8201-985b3f893720" width="180"/></td>
+    <td><img src="https://github.com/user-attachments/assets/93cab900-6545-42d6-ba7a-5bb713f3fdc2" width="180"/></td>
     <td><img src="https://github.com/user-attachments/assets/517a9fb9-4415-4b48-b0b9-9df05a07610e" width="180"/></td>
     <td></td>
   </tr>
