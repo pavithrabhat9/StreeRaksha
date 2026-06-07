@@ -59,7 +59,7 @@ Women's safety shouldn't depend on luck or timing. StreeRaksha is an Android app
 ## Getting Started
 
 ```bash
-git clone https://github.com/your-username/streeraksha
+[git clone https://github.com/pavithrabhat9/StreeRaksha
 ```
 
 1. Open the project in **Android Studio**
